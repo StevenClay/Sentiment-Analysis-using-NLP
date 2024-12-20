@@ -14,7 +14,7 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 # Load the dataset
-dataset = pd.read_csv('Tweets.csv')
+dataset = pd.read_csv('chat_dataset.csv')
 ax = dataset.value_counts('sentiment').plot(kind='bar')
 ax.set_title("Sentiment Distribution")
 plt.show()
@@ -47,7 +47,7 @@ def preprocess_text(text):
     return preprocessed_text
 
 # Apply preprocessing to the dataset
-dataset['preprocessed_text'] = dataset['text'].apply(preprocess_text)
+dataset['preprocessed_text'] = dataset['message'].apply(preprocess_text)
 
 # Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(dataset['preprocessed_text'], dataset['sentiment'], test_size=0.2, random_state=42)

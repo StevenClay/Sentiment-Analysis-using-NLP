@@ -6,7 +6,7 @@ import joblib
 model = joblib.load("model.pkl")
 
 # Define sentiment labels
-sentiment_labels = {'P': 'Positive', 'N': 'Negative', 'O': 'Neutral'}
+sentiment_labels = {'positive': 'Positive', 'negative': 'Negative', 'neutral': 'Neutral'}
 
 # Create Streamlit app
 st.title("Sentiment Analysis")
