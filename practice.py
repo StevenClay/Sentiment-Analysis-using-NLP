@@ -59,3 +59,28 @@ model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_l
 # Convert text data to input format for BERT
 inputs_train = tokenizer(X_train.tolist(), padding=True, truncation=True, return_tensors="pt")
 inputs_test = tokenizer(X_test.tolist(), padding=True, truncation=True, return_tensors="pt")
+
+# Model selection and training
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.svm import SVC
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import accuracy_score, classification_report
+
+# Define the model pipeline
+model_pipeline = Pipeline([
+    ('tfidf', TfidfVectorizer()),
+    ('svm', SVC(kernel='linear'))
+])
+
+# Train the model
+model_pipeline.fit(X_train, y_train)
+
+# Predict on the test set
+y_pred = model_pipeline.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+report = classification_report(y_test, y_pred)
+
+print("Accuracy:", accuracy)
+print("Classification Report:\n", report)
